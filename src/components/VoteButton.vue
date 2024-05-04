@@ -22,7 +22,6 @@ const count = ref(0);
 
 <style scoped>
 .vote {
-    padding: .3rem .1rem;
     display: flex;
     place-items: center;
     cursor: pointer;
@@ -40,7 +39,6 @@ const count = ref(0);
 @media screen and (min-width:1024px) {
     .vote{
         flex-direction: column;
-        padding: 1rem 0 ;
     }
 
     .vote .btn{
