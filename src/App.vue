@@ -1,10 +1,11 @@
 <template>
-  <header>
-    <h1>Main header</h1>
-  </header>
   <main>
     <section>
-      Main section
+      <CommentList />
     </section>
   </main>
 </template>
+
+<script setup>
+import CommentList from './components/CommentList.vue'
+</script>
