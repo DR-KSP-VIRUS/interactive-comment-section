@@ -3,7 +3,7 @@
     <Button btnType="button" @click="count++" class="plus">
         <img src="/images/icon-plus.svg" alt="plus icon">
     </Button>
-    {{ count }}
+    {{ countValueFormat(count) }}
     <Button btnType="button" class="minus" @click="count>=1 ? count-- :0">
         <img src="/images/icon-minus.svg" alt="minus icon">
     </Button>
@@ -12,9 +12,11 @@
 
 <script setup>
 import { ref } from 'vue';
+import { countValueFormat } from '@/helpers/counterFormat';
 import Button from './Button.vue';
 
 const count = ref(0);
+
 </script>
 
 

@@ -1,5 +1,5 @@
 <template>
-    <div :class="toggle ? 'wrapper show-modal':' wrapper hide-modal' ">
+    <div :class="toggle ? 'wrapper show-modal':' wrapper hide-modal' " >
         <div class="modal">
             <h1 class="title">Delete Comment</h1>
             <p class="content">

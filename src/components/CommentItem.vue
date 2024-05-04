@@ -9,7 +9,7 @@
                 improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.  
             </p>
             <div class="editing" v-else>
-                <textarea name="comment" id="id_comment" class="input-control" cols="100" v-model="editingComment"></textarea>
+                <textarea name="comment" id="id_comment" class="input-control" cols="100" rows="5" v-model="editingComment"></textarea>
             </div>
         </div>
         <div class="vote-btn">
@@ -88,6 +88,7 @@ const editingComment = ref(`Impressive! Though it seems the drag feature could b
     border-radius: .4rem;
     width: 100%;
     border:1px solid var(--light-gray);
+    font-size: large;
 }
 
 

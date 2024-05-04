@@ -4,13 +4,9 @@
         <strong>amyrobson</strong> 
         <div class="created-at">1 month ago</div>
     </div>
-    <!-- <div class="lg-reply"> -->
-        <!-- <ReplyButton /> -->
-    <!-- </div> -->
 </template>
 
 <script setup>
-import ReplyButton from './ReplyButton.vue';
 
 </script>
 
@@ -29,16 +25,4 @@ import ReplyButton from './ReplyButton.vue';
     margin-left: 1.5rem;
 }
 
-
-.lg-reply{
-    display: none;
-}
-
-/* @media screen and (min-width:1024px) { */
-    /* .lg-reply{ */
-        /* display: block; */
-        /* justify-self: center; */
-        /* align-self: center; */
-    /* } */
-/* } */
 </style>
