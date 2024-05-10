@@ -1,13 +1,22 @@
 <template>
     <div class="user">
-        <img src="/images/avatars/image-amyrobson.webp" alt="amyrobson image">
-        <strong>amyrobson</strong> 
-        <div class="created-at">1 month ago</div>
+        <img :src="user.image.webp" :alt="user.username">
+        <strong>{{ user.username }}</strong> 
+        <div class="created-at">{{ createdAt }}</div>
     </div>
 </template>
 
 <script setup>
-
+const props = defineProps({
+    user: {
+        type: Object,
+        required: true
+    },
+    createdAt: {
+        type: String,
+        required:true,
+    }
+})
 </script>
 
 <style scoped>

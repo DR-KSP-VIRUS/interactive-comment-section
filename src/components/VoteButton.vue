@@ -29,6 +29,7 @@ const count = ref(0);
     border-radius: .4rem;
     font-weight: 900;
     color: var(--moderate-blue);
+    padding: .3rem;
 }
 
 .plus,

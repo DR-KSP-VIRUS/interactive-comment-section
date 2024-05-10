@@ -1,13 +1,13 @@
 <template>
     <div class="form-wrapper">
         <form class="form" @submit.prevent="handleSubmit">
-            <img :src="currentUser.image.webp" :alt="currentUser.username+' image'">
+            <img :src="currentUser.image.webp" :alt="currentUser.username+' image' ">
             <div class="form-group">
                 <textarea class="form-control" name="comment" placeholder="Add comment..." rows="3"></textarea>
             </div>
             <div class="btn-wrapper">
                 <Button type="submit" class="btn-send">
-                    Send
+                    reply
                 </Button>
             </div>
         </form>
@@ -17,12 +17,18 @@
 <script setup>
 import Button from './Button.vue';
 import { useCommentStore } from '@/stores/commentStore';
-const {currentUser} = useCommentStore().commentListing;
 
-console.log(currentUser)
+const commentStore = useCommentStore();
+// const { currentUser } = commentStore.commentListing;
+
+
+const emit = defineEmits(['replied']);
+
+
 const handleSubmit = (e) => {
     e.preventDefault();
     console.log('submitting');
+    emit('replied');
 }
 </script>
 

@@ -1,21 +1,15 @@
 @import './base.css';
 
 #app {
-  display: flex;
-  flex-direction: column;
-  place-content: center;
-  place-items: center;
-  padding: 0 1rem;
-  height: 100vh;
-  margin-top: -5rem;
-  transition: all 0.54s ease;
+  padding: 0rem 2rem;
+  transition: all .54s ease;
 }
 
 
 @media screen and (min-width:1024px) {
   #app {
-    /* margin: 0 1rem; */
     display: flex;
-    margin-top: -8rem;
+    place-items: center;
+    place-content: center;
   }
 }

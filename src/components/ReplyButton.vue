@@ -1,40 +1,23 @@
 <template>
-    <div class="reply" @click="() => reply = true" v-if="!reply">
+    <div class="reply" @click="onReply">
         <Button btnType="button">
             <img src="/images/icon-reply.svg" alt="reply icon">
         </Button>
         reply
     </div>
-    <div class="reply" v-else>
-        <Button btnType="button" class="delete"  @click="handleModalOpen">
-            <img src="/images/icon-delete.svg" alt="delete icon" :style="{'margin-right':'.3rem'}">
-            Delete
-        </Button>
-        <Button btnType="button" class="edit" @click="onEdit">
-            <img src="/images/icon-edit.svg" alt="edit icon" :style="{'margin-right':'.3rem'}">
-            Edit
-        </Button>
-    </div>
-    <Modal :toggle="deleteBtn" @selected="() => deleteBtn = false"/>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+// import { ref } from 'vue';
 import Button from './Button.vue';
-import Modal from './Modal.vue'
 
-const reply = ref(false);
-const deleteBtn = ref(false);
+// const reply = ref(false);
 
-const emit = defineEmits(['edit']);
+const emit = defineEmits(['reply']);
 
-const handleModalOpen = () => {
-    deleteBtn.value = true;
-    reply.value = false;
-}
 
-const onEdit = () => {
-    emit("edit");
+const onReply = () => {
+    emit("reply");
 }
 
 </script>

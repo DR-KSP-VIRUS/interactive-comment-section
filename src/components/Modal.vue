@@ -67,7 +67,7 @@ const onSelected = () => {
 
 .no-delete{
     background-color: var(--grayish-blue);
-    padding: 1rem 1.5rem;
+    padding: .9rem 1rem;
     text-transform: uppercase;
     color: var(--white);
     display: flex;
@@ -77,7 +77,7 @@ const onSelected = () => {
 
 .delete {
     background-color: var(--soft-red);
-    padding: 1rem 1.5rem;
+    padding: .9rem 1rem;
     text-transform: uppercase;
     color: var(--white);
     border-radius: .4rem;

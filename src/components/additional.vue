@@ -1,25 +1,27 @@
 <template>
     <li class="comment">
         <div class="user-section">
-            <User :user="comment.user" :createdAt="comment.createdAt"/>
+            <User :user="comment.user" :createdAt="comment.createdAd"/>
         </div>
         <div class="comment-section">
-            <p class="comment-text">
+            <p class="comment-text" v-if="!editing">
                 {{ comment.content }}
             </p>
+            <div class="editing" v-else>
+                <textarea name="comment" id="id_comment" class="input-control" cols="100" rows="5" v-model="editingComment"></textarea>
+            </div>
         </div>
         <div class="vote-btn">
             <VoteButton />
         </div>
-        <div class="reply-btn">
-            <ReplyButton @reply="() => replyComment = true"/>
+        <div class="reply-btn" v-if="!editing">
+            <ReplyButton @edit="() => editing = true"/>
+        </div>
+        <div class="update" v-else>
+            <Button btnType="button" class="update-btn" @click="() => editing = false">Update</Button>
         </div>
     </li>
-    <div v-if="replyComment">
-        <ReplyCommentForm 
-            @replied="() => replyComment = false"
-        />
-    </div>
+    <AddComment />
 </template>
 
 <script setup>
@@ -27,7 +29,8 @@ import { ref } from 'vue';
 import User from './User.vue';
 import VoteButton from './VoteButton.vue';
 import ReplyButton from './ReplyButton.vue';
-import ReplyCommentForm from './ReplyCommentForm.vue';
+import Button from './Button.vue';
+import AddComment from './AddComment.vue';
 
 const props = defineProps({
     comment: {
@@ -36,8 +39,7 @@ const props = defineProps({
     }
 });
 
-const replyComment = ref(false);
-
+const editing = ref(false);
 
 
 </script>
@@ -49,7 +51,6 @@ const replyComment = ref(false);
     background-color: var(--white);
     padding: 1rem;
     border-radius: .4rem;
-    margin: 1rem 0;
 }
 
 .user-section{
