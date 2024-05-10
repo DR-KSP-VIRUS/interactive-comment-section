@@ -19,7 +19,7 @@ import Button from './Button.vue';
 import { useCommentStore } from '@/stores/commentStore';
 
 const commentStore = useCommentStore();
-// const { currentUser } = commentStore.commentListing;
+const { currentUser } = commentStore;
 
 
 const emit = defineEmits(['replied']);

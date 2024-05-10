@@ -1,9 +1,11 @@
 <template>
     <div class="form-wrapper">
         <form class="form" @submit.prevent="handleSubmit">
-            <img :src="currentUser.image.webp" :alt="currentUser.username+' image'">
+            <img src="/images/avatars/image-juliusomo.webp" alt="juliusomo image'">
             <div class="form-group">
-                <textarea class="form-control" name="comment" placeholder="Add comment..." rows="3"></textarea>
+                <textarea class="form-control" name="comment" placeholder="Add comment..." rows="3"
+                v-model="comment"
+                ></textarea>
             </div>
             <div class="btn-wrapper">
                 <Button type="submit" class="btn-send">
@@ -15,15 +17,38 @@
 </template>
 
 <script setup>
-import Button from './Button.vue';
+import { ref } from 'vue';
 import { useCommentStore } from '@/stores/commentStore';
-const {currentUser} = useCommentStore().commentListing;
+import Button from './Button.vue';
 
-console.log(currentUser)
+const comment = ref('');
+
+const commentStore = useCommentStore();
+
+
 const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submitting');
+    let id = Math.floor((Math.random() * 83392) + 1);
+    let content = comment.value
+    let newComment = {
+      id,content, createdAt: `${Date.now()}`,
+      score: 0,
+      user: {
+          image: {
+              png: "./images/avatars/image-juliusomo.webp",
+              webp: "./images/avatars/image-juliusomo.png"
+          },
+        username: "juliusomo"
+      },
+      replies: []
+    }
+    if (comment.value != '') {
+        commentStore.addComment(newComment);
+        comment.value = '';
+    }
 }
+
+
 </script>
 
 <style scoped>

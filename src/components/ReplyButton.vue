@@ -8,10 +8,8 @@
 </template>
 
 <script setup>
-// import { ref } from 'vue';
 import Button from './Button.vue';
 
-// const reply = ref(false);
 
 const emit = defineEmits(['reply']);
 

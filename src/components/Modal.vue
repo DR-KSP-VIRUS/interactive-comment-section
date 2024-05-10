@@ -1,15 +1,15 @@
 <template>
     <div :class="toggle ? 'wrapper show-modal':' wrapper hide-modal' " >
         <div class="modal">
-            <h1 class="title">Delete Comment</h1>
+            <h1 class="title">Delete Comment {{ id }}</h1>
             <p class="content">
                 Are you sure you want to delete this comment? This will remove the  comment and can't be undone.
             </p>
             <div class="modal-footer">
-                <Button btnType="button" class="no-delete" @click="onSelected">
+                <Button btnType="button" class="no-delete" @click="onNoDelete">
                     No, Cancel
                 </Button>
-                <Button btnType="button" class="delete" @click="onSelected">
+                <Button btnType="button" class="delete" @click="onDelete">
                     Yes, Delete
                 </Button>
             </div>
@@ -19,17 +19,25 @@
 
 <script setup>
 import Button from './Button.vue';
-const emit = defineEmits(["selected"]);
+const emit = defineEmits(["deleteComment","noDeleteComment"]);
 
 const props = defineProps({
     toggle: {
         type: Boolean,
         required: true
+    },
+    id: {
+        type: Number,
+        required: true
     }
 });
 
-const onSelected = () => {
-    emit("selected");
+const onDelete = () => {
+    emit("deleteComment", props.id);
+}
+
+const onNoDelete = () => {
+    emit("noDeleteComment");
 }
 </script>
 

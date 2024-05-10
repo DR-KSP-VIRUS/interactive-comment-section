@@ -1,28 +1,27 @@
 <template>
     <li class="comment">
         <div class="user-section">
-            <User :user="comment.user" :createdAt="comment.createdAt"/>
+            <User :user="reply.user" :createdAt="reply.createdAt"/>
         </div>
         <div class="comment-section">
             <p class="comment-text" v-if="!editing">
-                {{ comment.content }}
+                {{ reply.content }}
             </p>
             <div class="editing" v-else>
                 <textarea name="comment" id="id_comment" class="input-control" 
-                    cols="100" rows="5"  :value="comment.content">
+                    cols="100" rows="5"  :value="reply.content">
                 </textarea>
             </div>
         </div>
         <div class="vote-btn">
             <VoteButton 
-                :score="+comment.score" 
-                :id="+comment.id"
+                :score="+reply.score" 
+                :id="+reply.id"
                 @plusScore="handleAddVote"
                 @minusScore="handleMinusVote"
             />
         </div>
-        <div class="reply-btn" v-if="!(comment.user.username === currentUser.
-        username)">
+        <div class="reply-btn" v-if="!(reply.user.username === currentUser.username)">
             <ReplyButton @reply="() => commentReply = true"/>
         </div>
         <div class="reply-btn" v-else-if="!editing">
@@ -41,18 +40,15 @@
             <Button btnType="button" class="update-btn" @click="() => editing = 
         false">Update</Button>
         </div>
-        <Teleport to="html">
-            <Modal :toggle="deleteBtn" 
+        <Teleport to="body">
+            <Modal 
+                :toggle="deleteBtn" 
+                :id="+reply.id" 
                 @noDeleteComment="() => deleteBtn = false"
-                @deleteComment="handleDelete"
-                :id="+comment.id"
+                @deleteComment="handleDeleteReply"
             />
         </Teleport>
     </li>
-    <ul class="replies" v-for="reply in comment.replies" :key="reply.id">
-        <Replies :reply="reply"/>
-    </ul>
-
     <div v-if="commentReply">
         <ReplyCommentForm 
             @replied="() => commentReply = false"
@@ -68,22 +64,21 @@ import User from './User.vue';
 import VoteButton from './VoteButton.vue';
 import ReplyButton from './ReplyButton.vue';
 import ReplyCommentForm from './ReplyCommentForm.vue';
-import Replies from './Replies.vue';
-import Modal from './Modal.vue';
 import Button from './Button.vue';
+import Modal from './Modal.vue';
 
-
-const commentStore = useCommentStore();
-const { comments ,currentUser} = storeToRefs(commentStore);
 const commentReply = ref(false);
 const deleteBtn = ref(false);
 const editing = ref(false);
+const commentStore = useCommentStore();
+const { currentUser } = storeToRefs(commentStore);
 
 
+const emit = defineEmits(['edit']);
 const props = defineProps({
-    comment: {
+    reply: {
         type: Object,
-        required:true,
+        required: true,
     }
 });
 
@@ -92,33 +87,17 @@ const handleModalOpen = () => {
     deleteBtn.value = true;
 }
 
-
 const handleAddVote = (id) => {
-    comments.value.find((comment) => {
-        if (comment.id === id) {
-            let score = comment.score += 1;
-            let voted = { ...comment, score };
-            commentStore.voteComment(id, voted);
-
-        }
-    });
+    commentStore.voteReply(id,1)
 }
 
 const handleMinusVote = (id) => {
-    comments.value.find((comment) => {
-        if (comment.id === id) {
-            let score = comment.score -= 1;
-            let voted = { ...comment, score };
-            commentStore.voteComment(id, voted);
-        }
-    });
+    commentStore.voteReply(id, 1);
 }
 
-
-const handleDelete = (id) => {
-    const newcomments = comments.value.filter(comment => comment.id != id);
-    commentStore.deleteComment(newcomments);
-    deleteBtn.value = true;
+const handleDeleteReply = (id) => {
+    console.log(id);
+    deleteBtn.value = false;
 }
 </script>
 
@@ -180,16 +159,12 @@ const handleDelete = (id) => {
 }
 
 
-.replies {
-    margin-left: 1rem;
-}
-
 
 @media screen and (min-width:1024px) {
     .comment {
         display: grid;
         grid-template-columns: 1fr 10fr 1fr;
-        max-width: 620px;
+        max-width: 605px;
     }
 
     .user-section{
@@ -214,10 +189,6 @@ const handleDelete = (id) => {
 
     .update{
         grid-column: span 3;
-    }
-
-    .replies {
-        margin: 0 1rem;
     }
 }
 </style>

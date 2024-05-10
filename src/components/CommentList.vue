@@ -1,8 +1,8 @@
 <template>
-    <ul class="comments" v-for="comment in commentListing.comments" :key="comment.id">
+    <ul class="comments" v-for="comment in comments" :key="comment.id">
         <CommentItem :comment="comment" />
     </ul>
-    <AddComment />
+    <AddComment/>
 </template>
 
 <script setup>
@@ -13,7 +13,7 @@ import AddComment from './AddComment.vue';
 
 
 const commentStore = useCommentStore();
-const { commentListing } = storeToRefs(commentStore);
+const { comments } = storeToRefs(commentStore);
 
 
 </script>

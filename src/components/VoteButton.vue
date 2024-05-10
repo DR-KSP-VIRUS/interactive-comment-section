@@ -1,21 +1,37 @@
 <template>
     <div class="vote">
-    <Button btnType="button" @click="count++" class="plus">
-        <img src="/images/icon-plus.svg" alt="plus icon">
-    </Button>
-    {{ countValueFormat(count) }}
-    <Button btnType="button" class="minus" @click="count>=1 ? count-- :0">
-        <img src="/images/icon-minus.svg" alt="minus icon">
-    </Button>
-</div>
+        <Button btnType="button" @click="onPlusScore" class="plus">
+            <img src="/images/icon-plus.svg" alt="plus icon">
+        </Button>
+        {{ countValueFormat(score) }}
+        <Button btnType="button" class="minus" @click="onMinusScore">
+            <img src="/images/icon-minus.svg" alt="minus icon">
+        </Button>
+    </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { countValueFormat } from '@/helpers/counterFormat';
 import Button from './Button.vue';
+const emit = defineEmits(['plusScore','minusScore'])
+const props = defineProps({
+    score: {
+        type: Number,
+        required: true,
+    },
+    id: {
+        type: Number,
+        required: true,
+    }
+});
 
-const count = ref(0);
+const onPlusScore = () => {
+    emit("plusScore",props.id);
+}
+
+const onMinusScore = () => {
+    emit("minusScore",props.id);
+}
 
 </script>
 
