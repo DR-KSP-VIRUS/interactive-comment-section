@@ -3,7 +3,8 @@
         <form class="form" @submit.prevent="handleSubmit">
             <img :src="currentUser.image.webp" :alt="currentUser.username+' image' ">
             <div class="form-group">
-                <textarea class="form-control" name="comment" placeholder="Add comment..." rows="3"></textarea>
+                <textarea class="form-control" v-model="reply" name="comment" placeholder="Reply comment..."
+                    rows="3"></textarea>
             </div>
             <div class="btn-wrapper">
                 <Button type="submit" class="btn-send">
@@ -15,20 +16,50 @@
 </template>
 
 <script setup>
-import Button from './Button.vue';
+import { ref } from 'vue';
+import { storeToRefs} from 'pinia'
 import { useCommentStore } from '@/stores/commentStore';
+import Button from './Button.vue';
 
 const commentStore = useCommentStore();
-const { currentUser } = commentStore;
+const { currentUser } = storeToRefs(commentStore);
 
+const reply = ref('');
 
 const emit = defineEmits(['replied']);
 
+const props = defineProps({
+    parentId: {
+        type: Number,
+        required: true
+    },
+    commentOwner: {
+        type: String,
+        required: true,
+    }
+})
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submitting');
-    emit('replied');
+    let id = Math.floor((Math.random() * 83392) + 1);
+    let content = reply.value
+    let newReply = {
+        id, content, createdAt: `${Date.now()}`,
+        score: 0,
+        user: {
+            image: {
+                png: currentUser.value.image.png,
+                webp: currentUser.value.image.webp
+            },
+            username: currentUser.value.username
+        },
+        replyingTo: props.commentOwner,
+    }
+    if (reply.value != '') {
+        commentStore.addReply(props.parentId,newReply);
+        reply.value = '';
+        emit('replied');
+    }
 }
 </script>
 

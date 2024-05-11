@@ -30,16 +30,40 @@ export const useCommentStore = defineStore('commentStore', {
             });
         },
 
-        voteReply(id, reply) {
-            this.comments.replies
+        voteReply(parentId, id, reply) {
+            this.comments.find((c) => {
+                if (c.id === parentId) {
+                    return c;
+                }
+            }).replies.find((r) => {
+                if (r.id === id) {
+                    r = reply;
+                }
+            })
         },
 
         addComment(comment) {
             this.comments.push(comment);
-        }
-        ,
+        },
+
         deleteComment(comments) {
             this.comments = comments;
+        },
+
+        addReply(parentId, reply) {
+            try {
+                this.comments.find((c) => {
+                    if (c.id === parentId) {
+                        return c;
+                    }
+                }).replies.push(reply);
+            } catch (error) {
+                console.log("No more replies need!");
+            }
+        },
+
+        deleteReply(parentId, replies) {
+            this.comments.find(c => c.id === parentId).replies = replies
         }
     }
 });

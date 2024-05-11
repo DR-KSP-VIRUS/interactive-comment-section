@@ -41,7 +41,7 @@
             <Button btnType="button" class="update-btn" @click="() => editing = 
         false">Update</Button>
         </div>
-        <Teleport to="html">
+        <Teleport to="body">
             <Modal :toggle="deleteBtn" 
                 @noDeleteComment="() => deleteBtn = false"
                 @deleteComment="handleDelete"
@@ -50,12 +50,14 @@
         </Teleport>
     </li>
     <ul class="replies" v-for="reply in comment.replies" :key="reply.id">
-        <Replies :reply="reply"/>
+        <Replies :reply="reply" :parentId="+comment.id"/>
     </ul>
 
     <div v-if="commentReply">
         <ReplyCommentForm 
             @replied="() => commentReply = false"
+            :parentId="+comment.id"
+            :commentOwner="comment.user.username"
         />
     </div>
 </template>
@@ -99,7 +101,6 @@ const handleAddVote = (id) => {
             let score = comment.score += 1;
             let voted = { ...comment, score };
             commentStore.voteComment(id, voted);
-
         }
     });
 }
@@ -107,7 +108,7 @@ const handleAddVote = (id) => {
 const handleMinusVote = (id) => {
     comments.value.find((comment) => {
         if (comment.id === id) {
-            let score = comment.score -= 1;
+            let score = comment.score >= 1 ? comment.score -= 1:0;
             let voted = { ...comment, score };
             commentStore.voteComment(id, voted);
         }

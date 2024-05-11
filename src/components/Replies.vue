@@ -1,31 +1,27 @@
 <template>
     <li class="comment">
         <div class="user-section">
-            <User :user="reply.user" :createdAt="reply.createdAt"/>
+            <User :user="reply.user" :createdAt="reply.createdAt" />
         </div>
         <div class="comment-section">
             <p class="comment-text" v-if="!editing">
                 {{ reply.content }}
             </p>
             <div class="editing" v-else>
-                <textarea name="comment" id="id_comment" class="input-control" 
-                    cols="100" rows="5"  :value="reply.content">
+                <textarea name="comment" id="id_comment" class="input-control" cols="100" rows="5"
+                    :value="reply.content">
                 </textarea>
             </div>
         </div>
         <div class="vote-btn">
-            <VoteButton 
-                :score="+reply.score" 
-                :id="+reply.id"
-                @plusScore="handleAddVote"
-                @minusScore="handleMinusVote"
-            />
+            <VoteButton :score="+reply.score" :id="+reply.id" @plusScore="handleAddVote"
+                @minusScore="handleMinusVote" />
         </div>
         <div class="reply-btn" v-if="!(reply.user.username === currentUser.username)">
-            <ReplyButton @reply="() => commentReply = true"/>
+            <ReplyButton @reply="() => commentReply = true" />
         </div>
         <div class="reply-btn" v-else-if="!editing">
-            <Button btnType="button" class="delete"  @click="handleModalOpen">
+            <Button btnType="button" class="delete" @click="handleModalOpen">
                 <img src="/images/icon-delete.svg" alt="delete icon" :style="
                 {'margin-right':'.3rem'}">
                 Delete
@@ -41,18 +37,13 @@
         false">Update</Button>
         </div>
         <Teleport to="body">
-            <Modal 
-                :toggle="deleteBtn" 
-                :id="+reply.id" 
-                @noDeleteComment="() => deleteBtn = false"
-                @deleteComment="handleDeleteReply"
-            />
+            <Modal :toggle="deleteBtn" :id="+reply.id" @noDeleteComment="() => deleteBtn = false"
+                @deleteComment="handleDeleteReply" />
         </Teleport>
     </li>
     <div v-if="commentReply">
-        <ReplyCommentForm 
-            @replied="() => commentReply = false"
-        />
+        <ReplyCommentForm @replied="() => commentReply = false" :commentOwner="reply.user.username"
+            :parent-id="+reply.id" />
     </div>
 </template>
 
@@ -71,14 +62,23 @@ const commentReply = ref(false);
 const deleteBtn = ref(false);
 const editing = ref(false);
 const commentStore = useCommentStore();
-const { currentUser } = storeToRefs(commentStore);
-
+const { comments, currentUser } = storeToRefs(commentStore);
 
 const emit = defineEmits(['edit']);
 const props = defineProps({
     reply: {
         type: Object,
         required: true,
+    },
+    parentId: {
+        type: Number,
+        required: true,
+    }
+});
+
+const cunrrentComment = comments.value.find((c) => {
+    if (c.id === props.parentId) {
+        return c;
     }
 });
 
@@ -88,15 +88,29 @@ const handleModalOpen = () => {
 }
 
 const handleAddVote = (id) => {
-    commentStore.voteReply(id,1)
+    cunrrentComment.replies.find((r) => {
+        if (r.id === id) {
+            let score = r.score += 1;
+            let voted = { ...r, score };
+            commentStore.voteReply(props.parentId, id, voted);
+
+        }
+    });
 }
 
 const handleMinusVote = (id) => {
-    commentStore.voteReply(id, 1);
+    cunrrentComment.replies.find((r) => {
+        if (r.id === id) {
+            let score = r.score >= 1 ? r.score -= 1: 0;
+            let voted = { ...r, score };
+            commentStore.voteReply(props.parentId, id, voted);
+        }
+    });
 }
 
 const handleDeleteReply = (id) => {
-    console.log(id);
+    const currentReplies = cunrrentComment.replies.filter(r => r.id != id);
+    commentStore.deleteReply(props.parentId, currentReplies);
     deleteBtn.value = false;
 }
 </script>

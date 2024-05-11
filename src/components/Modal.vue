@@ -1,7 +1,7 @@
 <template>
     <div :class="toggle ? 'wrapper show-modal':' wrapper hide-modal' " >
         <div class="modal">
-            <h1 class="title">Delete Comment {{ id }}</h1>
+            <h1 class="title">Delete Comment</h1>
             <p class="content">
                 Are you sure you want to delete this comment? This will remove the  comment and can't be undone.
             </p>
@@ -44,7 +44,7 @@ const onNoDelete = () => {
 <style scoped>
 .wrapper {
     background-color: rgba(0, 0, 0, 0.6);
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -53,7 +53,7 @@ const onNoDelete = () => {
 }
 
 .modal {
-    display: grid;
+    display: block;
     background-color: var(--white);
     padding: 2rem 2rem;
     border-radius: .4rem;

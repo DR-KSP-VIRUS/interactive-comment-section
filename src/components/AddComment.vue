@@ -35,8 +35,8 @@ const handleSubmit = (e) => {
       score: 0,
       user: {
           image: {
-              png: "./images/avatars/image-juliusomo.webp",
-              webp: "./images/avatars/image-juliusomo.png"
+              png: commentStore.currentUser.image.png,
+              webp: commentStore.currentUser.image.webp
           },
         username: "juliusomo"
       },
