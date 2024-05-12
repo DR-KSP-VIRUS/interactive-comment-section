@@ -9,7 +9,7 @@
             </p>
             <div class="editing" v-else>
                 <textarea name="comment" id="id_comment" class="input-control" cols="100" rows="5"
-                    :value="reply.content">
+                    v-model="replyContent">
                 </textarea>
             </div>
         </div>
@@ -33,8 +33,7 @@
             </Button>
         </div>
         <div class="update" v-else>
-            <Button btnType="button" class="update-btn" @click="() => editing = 
-        false">Update</Button>
+            <Button btnType="button" class="update-btn" @click="handleReplyUpdate">Update</Button>
         </div>
         <Teleport to="body">
             <Modal :toggle="deleteBtn" :id="+reply.id" @noDeleteComment="() => deleteBtn = false"
@@ -64,6 +63,7 @@ const editing = ref(false);
 const commentStore = useCommentStore();
 const { comments, currentUser } = storeToRefs(commentStore);
 
+
 const emit = defineEmits(['edit']);
 const props = defineProps({
     reply: {
@@ -75,6 +75,7 @@ const props = defineProps({
         required: true,
     }
 });
+const replyContent = ref(props.reply.content)
 
 const cunrrentComment = comments.value.find((c) => {
     if (c.id === props.parentId) {
@@ -112,6 +113,11 @@ const handleDeleteReply = (id) => {
     const currentReplies = cunrrentComment.replies.filter(r => r.id != id);
     commentStore.deleteReply(props.parentId, currentReplies);
     deleteBtn.value = false;
+}
+
+const handleReplyUpdate = () => {
+    commentStore.updateReply(props.parentId,props.reply.id, replyContent.value);
+    editing.value = false;
 }
 </script>
 

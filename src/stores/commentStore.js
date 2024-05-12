@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { fetchComment } from "../../apis/getComment.api";
+import { fetchComment } from "../../apis/getComment";
 
 export const useCommentStore = defineStore('commentStore', {
     state: () => ({
@@ -79,6 +79,15 @@ export const useCommentStore = defineStore('commentStore', {
             this.saveToLocalStorage()
         },
 
+        updateComment(id, content) {
+            this.comments.find(c => {
+                if (c.id === id) {
+                    c.content = content
+                }
+            });
+            this.saveToLocalStorage();
+        },
+
         deleteComment(comments) {
             /**
              * @param comment
@@ -105,6 +114,17 @@ export const useCommentStore = defineStore('commentStore', {
             } catch (error) {
                 console.log("No more replies need!");
             }
+        },
+
+        updateReply(parentId, id, content) {
+            this.comments.find(c => {
+                return c.id === parentId;
+            }).replies.find(r => {
+                if (r.id === id) {
+                    r.content = content;
+                }
+            });
+            this.saveToLocalStorage();
         },
 
         deleteReply(parentId, replies) {

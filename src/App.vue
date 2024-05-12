@@ -11,5 +11,6 @@ import CommentList from './components/CommentList.vue'
 <style scoped>
   main{
     padding: 1rem 0;
+    font-family: "Rubik", sans-serif;
   }
 </style>

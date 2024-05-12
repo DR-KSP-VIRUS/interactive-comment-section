@@ -9,7 +9,7 @@
             </p>
             <div class="editing" v-else>
                 <textarea name="comment" id="id_comment" class="input-control" 
-                    cols="100" rows="5"  :value="comment.content">
+                    cols="100" rows="5"  v-model="commentContent">
                 </textarea>
             </div>
         </div>
@@ -38,8 +38,7 @@
             </Button>
         </div>
         <div class="update" v-else>
-            <Button btnType="button" class="update-btn" @click="() => editing = 
-        false">Update</Button>
+            <Button btnType="button" class="update-btn" @click="handleUpdateComment">Update</Button>
         </div>
         <Teleport to="body">
             <Modal :toggle="deleteBtn" 
@@ -89,6 +88,8 @@ const props = defineProps({
     }
 });
 
+const commentContent = ref(props.comment.content)
+
 
 const handleModalOpen = () => {
     deleteBtn.value = true;
@@ -115,6 +116,10 @@ const handleMinusVote = (id) => {
     });
 }
 
+const handleUpdateComment = () => {
+    commentStore.updateComment(props.comment.id, commentContent.value);
+    editing.value = false;
+}
 
 const handleDelete = (id) => {
     const newcomments = comments.value.filter(comment => comment.id != id);
