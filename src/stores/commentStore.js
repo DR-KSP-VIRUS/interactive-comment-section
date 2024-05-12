@@ -16,7 +16,6 @@ export const useCommentStore = defineStore('commentStore', {
              */
             let comments = JSON.parse(localStorage.getItem("comments"));
             let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-            localStorage.clear();
             if ((!comments) && (!currentUser)) {
                 try {
                     this.loading = true;
@@ -24,7 +23,6 @@ export const useCommentStore = defineStore('commentStore', {
                     this.comments = res.comments;
                     this.currentUser = res.currentUser;
                     this.loading = false;
-                    console.log("loaded from here")
                 } catch (error) {
                     console.log(error);
                 }
