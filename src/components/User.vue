@@ -2,11 +2,12 @@
     <div class="user">
         <img :src="user.image.webp" :alt="user.username">
         <strong>{{ user.username }}</strong> 
-        <div class="created-at">{{ createdAt }}</div>
+        <div class="created-at">{{ dateFormator(+createdAt) }}</div>
     </div>
 </template>
 
 <script setup>
+import { dateFormator } from '@/helpers/formateDate';
 const props = defineProps({
     user: {
         type: Object,

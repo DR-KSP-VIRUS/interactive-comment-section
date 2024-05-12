@@ -6,6 +6,7 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useCommentStore } from '@/stores/commentStore';
 import CommentItem from './CommentItem.vue';
@@ -15,7 +16,9 @@ import AddComment from './AddComment.vue';
 const commentStore = useCommentStore();
 const { comments } = storeToRefs(commentStore);
 
-
+onMounted(async () => {
+    await commentStore.loadComment;
+})
 </script>
 
 <style scoped>

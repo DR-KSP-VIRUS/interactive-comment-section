@@ -25,7 +25,6 @@ const comment = ref('');
 
 const commentStore = useCommentStore();
 
-
 const handleSubmit = (e) => {
     e.preventDefault();
     let id = Math.floor((Math.random() * 83392) + 1);
@@ -38,7 +37,7 @@ const handleSubmit = (e) => {
               png: commentStore.currentUser.image.png,
               webp: commentStore.currentUser.image.webp
           },
-        username: "juliusomo"
+        username: commentStore.currentUser.username
       },
       replies: []
     }
