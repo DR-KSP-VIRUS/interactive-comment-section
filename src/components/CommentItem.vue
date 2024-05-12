@@ -48,7 +48,7 @@
             />
         </Teleport>
     </li>
-    <ul class="replies" v-for="reply in comment.replies" :key="reply.id">
+    <ul class="replies" v-for="reply in sortReplies()" :key="reply.id">
         <Replies :reply="reply" :parentId="+comment.id"/>
     </ul>
 
@@ -125,6 +125,11 @@ const handleDelete = (id) => {
     const newcomments = comments.value.filter(comment => comment.id != id);
     commentStore.deleteComment(newcomments);
     deleteBtn.value = true;
+}
+
+
+const sortReplies = () => {
+    return props.comment.replies.sort((a, b) => b.createdAt - a.createdAt);
 }
 </script>
 
