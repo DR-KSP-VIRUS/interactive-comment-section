@@ -14,9 +14,9 @@ export const useCommentStore = defineStore('commentStore', {
              * if not found, load from the function
              * 
              */
+            // localStorage.clear()
             let comments = JSON.parse(localStorage.getItem("comments"));
             let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-            // localStorage.clear()
             if ((!comments) && (!currentUser)) {
                 try {
                     this.loading = true;
