@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { fetchComment } from "../../apis/getComment";
+import { fetchComment } from "@/apis/getComment";
 
 export const useCommentStore = defineStore('commentStore', {
     state: () => ({
