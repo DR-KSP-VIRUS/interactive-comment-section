@@ -31,9 +31,12 @@ export const dateFormator = (date) => {
         return `${week} week. ago`;
     }
 
-    let month = Math.floor(difference / 20160000);
+    let month = Math.floor(difference / 2419200000);
     if (month < 12) {
-        return `${month}yr. ago`;
+        return `${month} mon. ago`;
     }
+
+    let year = Math.floor(difference / 29030400000);
+    return `${year}yr. ago`;
 }
 
