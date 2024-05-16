@@ -25,8 +25,7 @@ const comment = ref('');
 
 const commentStore = useCommentStore();
 
-const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = () => {
     let id = Math.floor((Math.random() * 83392) + 1);
     let content = comment.value
     let newComment = {
@@ -52,7 +51,7 @@ const handleSubmit = (e) => {
 
 <style scoped>
 .form-wrapper {
-    margin: 1rem 0;
+    margin: 1rem  0;
     background: var(--white);
     padding: 1rem;
     border-radius: .4rem;
@@ -107,6 +106,10 @@ const handleSubmit = (e) => {
 }
 
 @media screen and (min-width:1024px) {
+    .form-wrapper{
+        margin: 1rem 1rem 1rem 0;
+
+    }
     .form{
         display: flex;
         place-items: start;

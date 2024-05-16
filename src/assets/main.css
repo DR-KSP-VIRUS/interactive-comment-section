@@ -1,7 +1,7 @@
 @import './base.css';
 
 #app {
-  padding: 0rem 2rem;
+  padding: 0rem 0.5rem;
   transition: all .54s ease;
 }
 

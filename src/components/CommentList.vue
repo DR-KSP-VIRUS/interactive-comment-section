@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { onMounted, computed } from 'vue';
+import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useCommentStore } from '@/stores/commentStore';
 import CommentItem from './CommentItem.vue';
