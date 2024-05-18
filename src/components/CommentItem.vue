@@ -192,7 +192,27 @@ const sortReplies = () => {
 
 
 .replies {
+    position: relative;
     margin-left: 1rem;
+    overflow: hidden;
+}
+
+.replies::before {
+    content: ' ';
+    border-left: 1px solid #aaa;
+    position: absolute;
+    left: 0;
+    bottom: calc(50% + 25px);
+    height: calc(50% - 25px);
+}
+
+.replies::after {
+    content: ' ';
+    border-left: 1px solid #aaa;
+    position: absolute;
+    left: 0;
+    top: calc(30%);
+    height: calc(85%);
 }
 
 
@@ -200,7 +220,7 @@ const sortReplies = () => {
     .comment {
         display: grid;
         grid-template-columns: 1fr 10fr 1fr;
-        max-width: 620px;
+        max-width: 623px;
     }
 
     .user-section{

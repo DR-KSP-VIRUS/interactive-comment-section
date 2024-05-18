@@ -1,5 +1,5 @@
 <template>
-    <li class="comment">
+    <li class="replied-comment">
         <div class="user-section">
             <User :user="reply.user" :createdAt="reply.createdAt" />
         </div>
@@ -122,13 +122,15 @@ const handleReplyUpdate = () => {
 </script>
 
 <style scoped>
-.comment {
+.replied-comment {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     background-color: var(--white);
+    position: relative;
     padding: 1rem;
     border-radius: .4rem;
-    margin: 1rem 0;
+    margin-top: 1rem;
+    margin-left: 1rem;
 }
 
 .user-section{
@@ -179,12 +181,13 @@ const handleReplyUpdate = () => {
 }
 
 
-
 @media screen and (min-width:1024px) {
-    .comment {
+    .replied-comment {
         display: grid;
         grid-template-columns: 1fr 10fr 1fr;
-        max-width: 605px;
+        max-width: 590px;
+        margin-right: 1rem;
+
     }
 
     .user-section{

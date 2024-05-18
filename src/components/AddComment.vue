@@ -51,7 +51,7 @@ const handleSubmit = () => {
 
 <style scoped>
 .form-wrapper {
-    margin: 1rem  0;
+    margin: 1rem 0;
     background: var(--white);
     padding: 1rem;
     border-radius: .4rem;
@@ -108,6 +108,7 @@ const handleSubmit = () => {
 @media screen and (min-width:1024px) {
     .form-wrapper{
         margin: 1rem 1rem 1rem 0;
+        max-width: 623px;
 
     }
     .form{
