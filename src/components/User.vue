@@ -32,19 +32,19 @@ const props = defineProps({
 
 .user img{
     width: 4rem;
-    margin-right: .7rem;
+    margin-right: .5rem;
 }
 
 .current-user {
     background-color: var(--moderate-blue);
     color: var(--white);
-    padding: .2rem .8rem;
+    padding: .2rem .5rem;
     margin-left: .5rem;
     border-radius: .44rem;
 }
 
 .created-at{
-    margin-left: 1rem;
+    margin-left: .7rem;
 }
 
 </style>
