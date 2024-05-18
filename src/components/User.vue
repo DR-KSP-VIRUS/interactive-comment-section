@@ -32,7 +32,7 @@ const props = defineProps({
 
 .user img{
     width: 4rem;
-    margin-right: 1rem;
+    margin-right: .7rem;
 }
 
 .current-user {
@@ -44,7 +44,7 @@ const props = defineProps({
 }
 
 .created-at{
-    margin-left: 1.5rem;
+    margin-left: 1rem;
 }
 
 </style>
