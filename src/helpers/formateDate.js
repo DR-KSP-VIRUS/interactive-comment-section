@@ -1,13 +1,13 @@
 export const dateFormator = (date) => {
     let difference = new Date() - date; // difference in milliseconds
-    if (difference < 1000) {
-        return 'right now'
-    }
+    // if (difference < 1000) {
+    // return 'right now'
+    // }
 
-    let sec = Math.floor(difference / 1000);
-    if (sec < 60) {
-        return `${sec} sec. ago`
-    }
+    // let sec = Math.floor(difference / 1000);
+    // if (sec < 60) {
+    // return `${sec} sec. ago`
+    // }
 
     let min = Math.floor(difference / 60000);
     if (min < 60) {

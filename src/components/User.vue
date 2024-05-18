@@ -2,15 +2,17 @@
     <div class="user">
         <img :src="user.image.webp" :alt="user.username">
         <strong>{{ user.username }}</strong> <span v-if="user.username === currentUser.username" class="current-user"> You </span>
-        <div class="created-at">{{ dateFormator(+createdAt) }}</div>
+        <div class="created-at">{{ currentDate ==='right now' ? dateFormator(+createdAt): currentDate }}</div>
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { dateFormator } from '@/helpers/formateDate';
 import { useCommentStore } from '@/stores/commentStore';
 
 const { currentUser } = useCommentStore()
+const currentDate = ref('right now');
 
 const props = defineProps({
     user: {
@@ -19,9 +21,15 @@ const props = defineProps({
     },
     createdAt: {
         type: String,
-        required:true,
+        required: true,
     }
-})
+});
+
+setInterval(() => {
+    currentDate.value = dateFormator(+props.createdAt)
+}, 60000);
+
+
 </script>
 
 <style scoped>
