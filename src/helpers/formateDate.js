@@ -28,12 +28,12 @@ export const dateFormator = (date) => {
 
     let week = Math.floor(difference / 604800000);
     if (week < 4) {
-        return `${week} week. ago`;
+        return `${week} wk. ago`;
     }
 
     let month = Math.floor(difference / 2419200000);
     if (month < 12) {
-        return `${month} mon. ago`;
+        return `${month} mth. ago`;
     }
 
     let year = Math.floor(difference / 29030400000);

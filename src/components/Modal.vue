@@ -19,6 +19,7 @@
 
 <script setup>
 import Button from './Button.vue';
+
 const emit = defineEmits(["deleteComment","noDeleteComment"]);
 
 const props = defineProps({
